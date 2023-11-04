@@ -14,7 +14,7 @@
 	<groupId>com.hiep</groupId>
 	<artifactId>SpringCommerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>SpringCommerce</name>
 	<description>Spring Ccommerce app for Midterm Project</description>
 	
@@ -83,6 +83,7 @@
 	</dependencies>
 
 	<build>
+	 	<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
