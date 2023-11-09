@@ -27,20 +27,20 @@ public class UserController {
         HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
 
-        if (cookies != null) {                                      
+        if (cookies != null) {                                  
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("username")) {
                     model.addAttribute("remUsername", cookie.getValue());
                 }
 
-                if (cookie.getName().equals("password")) {
+                else if (cookie.getName().equals("password")) {
                     model.addAttribute("remPassword", cookie.getValue());
                 }
             }
         }
 
         if (session.getAttribute("userLogin") != null) {
-            redirectAttributes.addFlashAttribute("message", "Login success!");
+            redirectAttributes.addFlashAttribute("message", "Login successfully!");
             return "redirect:/";
         }
 
@@ -102,6 +102,7 @@ public class UserController {
         HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
         String strMessage = restTemplate.postForObject(url, entity, String.class);
         redirectAttributes.addFlashAttribute("messageRegister", strMessage);
+        
         return "redirect:/user";
     }
 }

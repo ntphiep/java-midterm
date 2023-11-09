@@ -1,18 +1,7 @@
 version: '3.8'
 
 services:
-  # app:
-  #   build: .
-  #   depends_on: 
-  #     - mysql
-  #   ports:
-  #     - 8080:8080
-  #   environment:
-  #     - JAVA_TOOL_OPTIONS=--add-opens=java.base/java.time=ALL-UNNAMED
-  
-
   mysql:
-    container_name: db_midterm
     image: mysql:8.0
     command: --default-authentication-plugin=caching_sha2_password
     restart: always
@@ -21,7 +10,14 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - ./data:/docker-entrypoint-initdb.d  
+      - ./data:/docker-entrypoint-initdb
 
-
+  # app:
+  #   build: .
+  #   depends_on: 
+  #     - mysql
+  #   ports:
+  #     - 8080:8080
+  #   environment:
+  #     - JAVA_TOOL_OPTIONS=--add-opens=java.base/java.time=ALL-UNNAMED
 

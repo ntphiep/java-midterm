@@ -1,8 +1,8 @@
 package com.hiep.controllers;
 
 import com.google.gson.Gson;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.hiep.models.*;
 import com.hiep.services.*;
@@ -70,13 +70,13 @@ public class APIController {
         Gson gson = new Gson();
         User user = gson.fromJson(request, User.class);
 
-        if (userService.checkUserExist(user.getUsername())){
+        if(userService.checkUserExist(user.getUsername())){
             return "Username is exist!";
         }
 
         String rePassword = user.getCustomer().getName();
         
-        if (!rePassword.equals(user.getPassword())){
+        if(!rePassword.equals(user.getPassword())){
             return "Wrong password!";
         }
 
@@ -95,7 +95,7 @@ public class APIController {
 
         int quantity = Integer.parseInt(body.get("quantity").toString());
 
-        if (quantity == 0) {
+        if(quantity == 0){
             if(cartService.checkProductExist(user_id, product_id)){
                 cartService.updateQuantity(user_id, product_id);
                 return cartService.findByUserIdAndProdId(user_id, product_id);
@@ -104,7 +104,7 @@ public class APIController {
             User user = userService.findById(user_id);
             Product product = productService.findByID(product_id);
             Cart cart = new Cart(product.getName(), product_id, product.getPrice(), product.getImage(), user);
-
+            
             return cartService.save(cart);
         } else {
             if(cartService.checkProductExist(user_id, product_id)) {
@@ -115,8 +115,7 @@ public class APIController {
 
         User user = userService.findById(user_id);
         Product product = productService.findByID(product_id);
-        Cart cart = new Cart(product.getName(), product_id, product.getPrice(), product.getImage(), quantity, user);
-
+        Cart cart = new Cart(product.getName(),product_id, product.getPrice(), product.getImage(), quantity, user);
         return cartService.save(cart);
     }
 
@@ -155,11 +154,10 @@ public class APIController {
 
     @DeleteMapping("/api/cart/delete/{id}")
     public boolean removeCartByID(@PathVariable("id") Long id){
-        if (cartService.checkByID(id)) {
+        if(cartService.checkByID(id)) {
             cartService.deleteByID(id);
             return true;
         }
-
         return false;
     }
 
@@ -180,16 +178,15 @@ public class APIController {
         order.setTotal(total);
         order = orderService.save(order);
 
-        for (Cart cart: carts){
+        for(Cart cart: carts){
             Product product = productService.findByID(cart.getProduct_id());
             OrderItem orderItem = new OrderItem();
-             
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             orderItem.setPrice(product.getPrice());
             orderItem.setQuantity(cart.getQuantity());
             orderItemService.save(orderItem);
-            productService.updateQuantity(product.getId(), cart.getQuantity());
+            productService.updateQuantity(product.getId(),cart.getQuantity());
             cartService.deleteByID(cart.getId());
         }
 

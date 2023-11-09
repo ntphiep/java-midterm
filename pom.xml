@@ -21,7 +21,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>	
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,6 +97,13 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<nonFilteredFileExtensions>
+
+						<nonFilteredFileExtension>html</nonFilteredFileExtension>
+						<nonFilteredFileExtension>css</nonFilteredFileExtension>
+						<nonFilteredFileExtension>js</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+
 				</configuration>
 			</plugin>
 		</plugins>

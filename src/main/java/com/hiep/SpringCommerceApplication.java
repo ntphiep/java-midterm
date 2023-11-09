@@ -5,13 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringEcommerceApplication implements CommandLineRunner {
+public class SpringCommerceApplication implements CommandLineRunner {
     public static void main(String[] args) {
-        SpringApplication.run(SpringEcommerceApplication.class, args);
+        SpringApplication.run(SpringCommerceApplication.class, args);
     }
 
     @Override
-    public void run(String... args) {
-
-    }
+    public void run(String... args) {}
 }

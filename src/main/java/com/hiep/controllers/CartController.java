@@ -33,9 +33,7 @@ public class CartController {
         model.addAttribute("user", user);
 
         String url = rootUrl + "/api/cart/all-by-id/" + user.getId();
-
-        RestTemplate restTemplate = new RestTemplate();
-        Iterable carts = restTemplate.getForObject(url, Iterable.class);
+        Iterable carts = new RestTemplate().getForObject(url, Iterable.class);
 
         if (carts == null) carts = new ArrayList<>();
         

@@ -48,6 +48,7 @@ public class HomeController {
 
         List products = restTemplate.getForObject(url, List.class);
         redirectAttributes.addFlashAttribute("products", products);
+
         return "redirect:/home";
     }
 
@@ -62,6 +63,7 @@ public class HomeController {
 
         redirectAttributes.addFlashAttribute("products", products);
         redirectAttributes.addFlashAttribute("rangePrice", price);
+        
         return "redirect:/home";
     }
 
