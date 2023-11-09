@@ -98,7 +98,7 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (1, 'Phone'),
 (2, 'Laptop'),
 (3, 'Accessory'),
-(4, 'Electronic Components');
+(4, 'Component');
 
 
 
@@ -133,26 +133,25 @@ INSERT INTO `order_item` (`id`, `price`, `quantity`, `order_id`, `product_id`) V
 (7, 123.99, 10, 2, 2),
 (8, 56.99, 6, 1, 1),
 (9, 252.99, 5, 8, 1),
-(10, 62.99, 1, 6, 3),
-(11, 14.99, 1, 10, 1),
-(12, 73.99, 1, 3, 3),
-(13, 114.99, 1, 9, 6),
-(14, 83.99, 2, 9, 3),
-(15, 923.99, 1, 2, 3),
-(16, 94.99, 1, 7, 6),
-(17, 38.99, 5, 7, 2),
-(18, 100.99, 6, 7, 2);
+(10, 62.99, 1, 6, 3);
+
 
 
 
 INSERT INTO `product` (`id`, `color`, `image`, `name`, `price`, `quantity`, `brand_id`, `category_id`) VALUES
-(1, 'Red', 'product7.jpg', 'T-Shirt', 19.99, 26, 1, 1),
-(2, 'Blue', 'product8.jpg', 'Sneakers', 59.99, 25, 2, 2),
-(3, 'Black', 'product9.jpg', 'Jeans', 39.99, 55, 3, 1),
-(4, 'Green', 'product10.jpg', 'Vallet', 39.99, 70, 2, 3),
-(5, 'White', 'product11.jpg', 'Underwear', 39.99, 999, 2, 1),
-(6, 'White', 'product12.jpg', 'Suite', 39.99, 999, 2, 1),
-(7, 'Grey', 'product12.jpg', 'Phone', 139.99, 999, 6, 4);
+(1, 'White', 'product1.jpg', 'Oppo Earphone', 19.99, 56, 6, 3),
+(2, 'White', 'product2.jpg', 'VOOC Charger', 35.99, 25, 6, 3),
+(3, 'Black', 'product3.jpg', 'Asus ROG', 269.99, 6, 3, 2),
+(4, 'Black', 'product4.jpg', 'Main TUF', 133.99, 20, 3, 4),
+(5, 'Black', 'product5.jpg', 'Galaxy S23', 519.99, 92, 4, 1),
+(6, 'Black', 'product6.jpg', 'S Earphone', 29.99, 89, 4, 3),
+(7, 'Silver', 'product7.jpg', 'Mac Pro', 439.99, 38, 1, 2),
+(8, 'Grey', 'product8.jpg', 'iPhone 15', 235.99, 25, 1, 1),
+(9, 'Black', 'product9.jpg', 'RTX 3070', 349.99, 60, 5, 4),
+(10, 'Silver', 'product10.jpg', 'RTX 4090', 563.99, 3, 5, 4),
+(11, 'Black', 'product11.jpg', 'Dell XPS', 419.99, 92, 2, 2),
+(12, 'Black', 'product12.jpg', 'Dell Pre', 524.99, 8, 2, 2);
+
 
 
 
