@@ -20,7 +20,7 @@ public class User {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
     
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonBackReference
     private List<Cart> carts;
 }

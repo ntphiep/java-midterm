@@ -63,8 +63,8 @@ CREATE TABLE `order_item` (
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `customer_id` bigint(20) NOT NULL
 );
 
@@ -151,14 +151,15 @@ INSERT INTO `product` (`id`, `color`, `image`, `name`, `price`, `quantity`, `bra
 (3, 'Black', 'product9.jpg', 'Jeans', 39.99, 55, 3, 1),
 (4, 'Green', 'product10.jpg', 'Vallet', 39.99, 70, 2, 3),
 (5, 'White', 'product11.jpg', 'Underwear', 39.99, 999, 2, 1),
-(6, 'White', 'product12.jpg', 'Suite', 39.99, 999, 2, 1);
+(6, 'White', 'product12.jpg', 'Suite', 39.99, 999, 2, 1),
+(7, 'Grey', 'product12.jpg', 'Phone', 139.99, 999, 6, 4);
 
 
 
 
-INSERT INTO `user` (`id`, `password`, `username`, `customer_id`) VALUES
+INSERT INTO `user` (`id`, `username`, `password`, `customer_id`) VALUES
 (1, 'admin', 'admin', 1),
-(2, 'deptrai', 'hiep', 2);
+(2, 'hiep', 'deptrai', 2);
 
 
 

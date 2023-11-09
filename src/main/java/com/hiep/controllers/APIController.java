@@ -183,13 +183,13 @@ public class APIController {
         for (Cart cart: carts){
             Product product = productService.findByID(cart.getProduct_id());
             OrderItem orderItem = new OrderItem();
-            
+             
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             orderItem.setPrice(product.getPrice());
             orderItem.setQuantity(cart.getQuantity());
             orderItemService.save(orderItem);
-            productService.updateQuantity(product.getId(),cart.getQuantity());
+            productService.updateQuantity(product.getId(), cart.getQuantity());
             cartService.deleteByID(cart.getId());
         }
 

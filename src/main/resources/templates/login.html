@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
+						<h2>Login To Your Account</h2>
 						<form th:action="@{/user/login}" th:object="${user}" method="post">
 							<input type="text" id="username" placeholder="Username" th:field="*{username}" />
 							<input type="password" id = "password" placeholder="Password" th:field="*{password}" />
@@ -36,8 +36,8 @@
 						<form th:action="@{/user/signup}" th:object="${user}" method="post">
 							<input type="text" placeholder="Username" th:field="*{username}"/>
 							<input type="email" placeholder="Email Address" th:field="*{customer.email}"/>
-							<input type="password" placeholder="Enter Password" th:field="*{password}"/>
-							<input type="password" placeholder="Enter Password Again" th:field="*{customer.name}"/>
+							<input type="password" placeholder="Password" th:field="*{password}"/>
+							<input type="password" placeholder="Re-enter Password" th:field="*{customer.name}"/>
 							<div th:if="${messageRegister}" class="alert alert-success text-center">
 								[[${messageRegister}]]
 							</div>

@@ -16,31 +16,19 @@ public class CartService {
         return cartS.save(cart);
     }
 
-    public Iterable<Cart> findAllByUserID(Long id) {
-        return cartS.findAllByUserId(id);
-    }
-    public boolean checkProductExist(Long user_id, Long product_id) {
-        return cartS.findProduct(user_id, product_id) != null;
-    }
+    public Iterable<Cart> findAllByUserID(Long id) { return cartS.findAllByUserId(id); }
 
-    public void deleteByID(Long id) {
-        cartS.deleteById(id);
-    }
-    public boolean checkByID(Long id){
-        return cartS.findById(id).isPresent();
-    }
+    public Cart findByUserIdAndProdId(Long userId, Long productId) { return cartS.findByUserIdAndProductId(userId, productId); }
 
-    public void updateQuantity(Long userId, Long productId) {
-        cartS.updateQuantity(userId, productId);
-    }
-    public void updateQuantity(Long userId, Long productId, int quantity) {
-        cartS.updateQuantity(userId, productId, quantity);
-    }
-    public Cart findByUserIdAndProdId(Long userId, Long productId) {
-        return cartS.findByUserIdAndProductId(userId, productId);
-    }
+    public boolean checkByID(Long id) { return cartS.findById(id).isPresent(); }
 
-    public Double totalCartByUserId(Long userId) {
-        return cartS.totalCartBy(userId);
-    }
+    public boolean checkProductExist(Long user_id, Long product_id) { return cartS.findProduct(user_id, product_id) != null; }
+
+    public void updateQuantity(Long userId, Long productId) { cartS.updateQuantity(userId, productId); }
+
+    public void updateQuantity(Long userId, Long productId, int quantity) { cartS.updateQuantity(userId, productId, quantity); }
+
+    public Double totalCartByUserId(Long userId) { return cartS.totalCartBy(userId); }
+
+    public void deleteByID(Long id) { cartS.deleteById(id); }
 }

@@ -26,8 +26,8 @@ public interface CartS extends CartRepository {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Cart SET quantity = :quan, total = cast( :quan * price as double)WHERE user.id = :userId AND product_id = :productId")
-    void updateQuantity(@Param("userId")Long userId, @Param("productId")Long productId, int quan);
+    @Query(value = "UPDATE Cart SET quantity = :quantity, total = cast( :quantity * price as double) WHERE user.id = :userId AND product_id = :productId")
+    void updateQuantity(@Param("userId")Long userId, @Param("productId")Long productId, int quantity);
 
     @Query(value = "FROM Cart AS c WHERE c.user.id=:userId and c.product_id=:productId")
     Cart findByUserIdAndProductId(@Param("userId")Long userId, @Param("productId") Long productId);

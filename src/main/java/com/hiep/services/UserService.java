@@ -11,17 +11,13 @@ public class UserService {
     @Autowired
     private UserS userS;
 
-    public User userLoginValid(String username, String password) {
-        return userS.getUserValid(username, password);
-    }
-    public boolean checkUserExist(String username){
-        return userS.findUserByUsernameEquals(username) != null;
-    }
-
     public void save(User user) {
         userS.save(user);
     }
-    public User findById(Long id){
-        return userS.findById(id).get();
-    }
+
+    public User userLoginValid(String username, String password) { return userS.getUserValid(username, password); }
+
+    public boolean checkUserExist(String username) { return userS.findUserByUsernameEquals(username) != null; }
+    
+    public User findById(Long id) { return userS.findById(id).get(); }
 }
