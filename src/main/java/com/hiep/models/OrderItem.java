@@ -3,6 +3,8 @@ package com.hiep.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+
 @Data
 @Entity
 public class OrderItem {

@@ -20,17 +20,19 @@ import com.hiep.models.User;
 
 @Controller
 public class UserController {
-    public static final String baseUrl = "http://localhost:8080";
+    public static final String rootUrl = "http://localhost:8080";
 
     @GetMapping("/user")   // [GET] login/register for user
     public String getUser(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
+
+        if (cookies != null) {                                      
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("username")) {
                     model.addAttribute("remUsername", cookie.getValue());
                 }
+
                 if (cookie.getName().equals("password")) {
                     model.addAttribute("remPassword", cookie.getValue());
                 }
@@ -54,8 +56,7 @@ public class UserController {
 
     @PostMapping("/user/login")     // [POST] /user/login
     public String postLogin(User user, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) {
-        String api = "/api/user/login/user-valid";
-        String url = baseUrl + api;
+        String url = rootUrl + "/api/user/login/user-valid";
         String requestJson = "{\"username\":\"" + user.getUsername() + "\",\"password\":\"" + user.getPassword() + "\"}";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -66,13 +67,15 @@ public class UserController {
         String strUser = restTemplate.postForObject(url, entity, String.class);
         Gson gson = new Gson();
         User userValid = gson.fromJson(strUser, User.class);
+
         if (userValid != null) {
             HttpSession session = request.getSession();
-            Cookie ck = new Cookie("username", user.getUsername());
-            Cookie ck1 = new Cookie("password", user.getPassword());
+            Cookie userCookie = new Cookie("username", user.getUsername());
+            Cookie passCookie = new Cookie("password", user.getPassword());
 
-            response.addCookie(ck);
-            response.addCookie(ck1);
+            response.addCookie(userCookie);
+            response.addCookie(passCookie);
+
             session.setAttribute("userLogin", userValid);
         } else redirectAttributes.addFlashAttribute("message", "Password or Username invalid!");
 
@@ -88,8 +91,7 @@ public class UserController {
 
     @PostMapping("/user/signup")
     public String postSignUp(User user, RedirectAttributes redirectAttributes) {
-        String api = "/api/user/add";
-        String url = baseUrl + api;
+        String url = rootUrl + "/api/user/add";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

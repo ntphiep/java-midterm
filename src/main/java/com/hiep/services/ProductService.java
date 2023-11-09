@@ -15,9 +15,11 @@ public class ProductService {
     public Iterable<Product> findAll() {
         return productS.findAll();
     }
+
     public Iterable<Product> searchAdvance(String text){
         return productS.searchAdvance(text);
     }
+    
     public void updateQuantity(Long id,int quan){
         productS.updateQuantity(id,quan);
     }

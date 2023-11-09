@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 @Controller
 public class CheckoutController {
-    public static final String baseUrl = "http://localhost:8080";
+    public static final String rootUrl = "http://localhost:8080";
 
     @GetMapping("/checkout") 
     public String getCheckOut(HttpServletRequest request, Model model) {
@@ -31,26 +31,29 @@ public class CheckoutController {
         if (session.getAttribute("userLogin") == null) return "redirect:/user";
         
         User user = (User) session.getAttribute("userLogin");
-        String url = baseUrl + "/api/cart/all-by-id/" + user.getId();
+        String url = rootUrl + "/api/cart/all-by-id/" + user.getId();
 
         RestTemplate restTemplate = new RestTemplate();
         Iterable carts = restTemplate.getForObject(url, Iterable.class);
         if (carts == null) carts = new ArrayList<>();
-        
-        url = baseUrl + "/api/cart/total/" + user.getId();
-        restTemplate = new RestTemplate();
-        Double total = restTemplate.getForObject(url,Double.TYPE);
+
         model.addAttribute("carts", carts);
+
+        url = rootUrl + "/api/cart/total/" + user.getId();
+        restTemplate = new RestTemplate();
+        Double total = restTemplate.getForObject(url, Double.TYPE);
+        
         model.addAttribute("total", total);
         model.addAttribute("user", user);
 
-        url = baseUrl + "/api/customer/find/" + user.getCustomer().getId();
+        url = rootUrl + "/api/customer/find/" + user.getCustomer().getId();
         restTemplate = new RestTemplate();
 
         String strCustomer = restTemplate.getForObject(url,String.class);
         Gson gson = new Gson();
-        Customer customer = gson.fromJson(strCustomer,Customer.class);
+        Customer customer = gson.fromJson(strCustomer, Customer.class);
         model.addAttribute("customer", customer);
+
         return "checkout";
     }   
 
@@ -61,46 +64,46 @@ public class CheckoutController {
     }
 
 
-
     @PostMapping("/checkout/order")
     public String postOrder(Customer customer, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("userLogin") == null) return "redirect:/user";
         
         User user = (User) session.getAttribute("userLogin");
-        String url = baseUrl + "/api/cart/all-by-id/" + user.getId();
+        String url = rootUrl + "/api/cart/all-by-id/" + user.getId();
 
         RestTemplate restTemplate = new RestTemplate();
         String carts = restTemplate.getForObject(url, String.class);
-        assert carts != null;       // Check if cart is null?
 
-        if (carts.equals("[]")) {
-            redirectAttributes.addFlashAttribute("message","Empty cart!");
+        if (carts == null) {
+            redirectAttributes.addFlashAttribute("message", "Empty cart!");
             return "redirect:/checkout";
         }
         
-        if(customer.containNone()){
+        if(customer.containNone()) {
             redirectAttributes.addFlashAttribute("message","Please enter your full information!");
             return "redirect:/checkout";
         }
 
         // Update information customer
-        url = baseUrl + "/api/customer/update";
+        url = rootUrl + "/api/customer/update";
         Gson gson = new Gson();
         String requestJson = gson.toJson(customer);
         restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
+
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
         restTemplate.postForObject(url, entity, String.class);
 
         // Add order
-        url = baseUrl + "/api/order/add";
+        url = rootUrl + "/api/order/add";
         requestJson = "{\"user_id\":\"" + user.getId() + "\",\"customer_id\":\"" + customer.getId() + "\"}";
         headers.setContentType(MediaType.APPLICATION_JSON);
-        entity = new HttpEntity<>(requestJson, headers);
-        restTemplate.postForObject(url, entity, String.class);
-        redirectAttributes.addFlashAttribute("message","Successfully order!");
+
+        restTemplate.postForObject(url, new HttpEntity<>(requestJson, headers), String.class);
+        redirectAttributes.addFlashAttribute("message","Order Successfully!");
+
         return "redirect:/checkout";
     }
 }

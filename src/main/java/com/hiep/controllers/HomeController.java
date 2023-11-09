@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    public static final String baseUrl = "http://localhost:8080";
+    public static final String rootUrl = "http://localhost:8080";
 
     @GetMapping("/")
     public String getHome() {
@@ -23,18 +23,14 @@ public class HomeController {
     @GetMapping("/home")
     public String getHome(Model model,HttpServletRequest request) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = baseUrl + "/api/product/get-all";
-        List products = restTemplate.getForObject(url, List.class);
 
-        url = baseUrl + "/api/category/get-all";
-        Iterable categories = restTemplate.getForObject(url, Iterable.class);
-
-        url = baseUrl + "/api/brand/get-all";
-        Iterable brands = restTemplate.getForObject(url, Iterable.class);
- 
+        List products = restTemplate.getForObject(rootUrl + "/api/product/get-all", List.class);
         if(model.getAttribute("products") == null) model.addAttribute("products", products);
-        
+
+        Iterable categories = restTemplate.getForObject(rootUrl + "/api/category/get-all", Iterable.class);
         model.addAttribute("categories", categories);
+
+        Iterable brands = restTemplate.getForObject(rootUrl + "/api/brand/get-all", Iterable.class);
         model.addAttribute("brands", brands);
 
         return "index";
@@ -48,7 +44,7 @@ public class HomeController {
     @GetMapping("/home/brand/{id}")
     public String getFilterByBrand(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = baseUrl + "/api/product/find-by-brand-id/" + id;
+        String url = rootUrl + "/api/product/find-by-brand-id/" + id;
 
         List products = restTemplate.getForObject(url, List.class);
         redirectAttributes.addFlashAttribute("products", products);
@@ -61,7 +57,7 @@ public class HomeController {
         Double price = Double.valueOf(body.split("=")[1]);
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = baseUrl + "/api/product/find-by-range-price/" + price;
+        String url = rootUrl + "/api/product/find-by-range-price/" + price;
         List products = restTemplate.getForObject(url, List.class);
 
         redirectAttributes.addFlashAttribute("products", products);

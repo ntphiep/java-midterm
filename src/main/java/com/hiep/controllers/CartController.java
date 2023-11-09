@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Controller
 public class CartController {
-    public static final String baseUrl = "http://localhost:8080";
+    public static final String rootUrl = "http://localhost:8080";
 
     @GetMapping("/cart")        // [GET] /cart
     public String getCart(Model model, HttpServletRequest request) {
@@ -30,7 +30,9 @@ public class CartController {
         if (session.getAttribute("userLogin") == null)  return "redirect:/user";
         
         User user = (User) session.getAttribute("userLogin");
-        String url = baseUrl + "/api/cart/all-by-id/" + user.getId();
+        model.addAttribute("user", user);
+
+        String url = rootUrl + "/api/cart/all-by-id/" + user.getId();
 
         RestTemplate restTemplate = new RestTemplate();
         Iterable carts = restTemplate.getForObject(url, Iterable.class);
@@ -38,8 +40,7 @@ public class CartController {
         if (carts == null) carts = new ArrayList<>();
         
         model.addAttribute("carts", carts);
-        model.addAttribute("user", user);
-
+        
         return "cart";
     }
 
@@ -49,16 +50,17 @@ public class CartController {
         if (session.getAttribute("userLogin") == null) return "redirect:/user";
         
         User user = (User) session.getAttribute("userLogin");
-        String url = baseUrl + "/api/cart/add";
+        String url = rootUrl + "/api/cart/add";
         
-        int num = 0;
+        int quantity = 0;
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        String requestJson = "{\"user_id\":\"" + user.getId() + "\",\"product_id\":\"" + product_id + "\",\"quantity\":\"" + num + "\"}";
+        String requestJson = "{\"user_id\":\"" + user.getId() + "\",\"product_id\":\"" + product_id + "\",\"quantity\":\"" + quantity + "\"}";
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
         restTemplate.postForObject(url, entity, String.class);
+
         return "redirect:/cart";
     }
 
@@ -73,7 +75,7 @@ public class CartController {
         int quantity = Integer.parseInt(body.get("quantity"));
         long product_id = Long.parseLong(body.get("product_id"));
 
-        String url = baseUrl + "/api/cart/add";
+        String url = rootUrl + "/api/cart/add";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -83,6 +85,7 @@ public class CartController {
 
         HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
         restTemplate.postForObject(url, entity, String.class);
+        
         return "redirect:/cart";
     }
 
@@ -90,7 +93,7 @@ public class CartController {
 
     @GetMapping("/cart/delete/{id}")        
     public String deleteFromCart(@PathVariable("id") Long id) {
-        String url = baseUrl + "/api/cart/delete/" + id;
+        String url = rootUrl + "/api/cart/delete/" + id;
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.delete(url);

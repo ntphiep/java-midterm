@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang = "en" xmlns:th="http://www.thymeleaf.org">
-<title>Spring Commerce</title>
+	<title>Spring Commerce</title>
 <head th:replace="~{/fragments/head}">
 </head><!--/head-->
-<style>
-	input[type=range] {
-		-webkit-appearance: none;
-	}
 
-	input[type=range]::-webkit-slider-runnable-track {
-		height: .35em;
-		background: #0f77fe;
-		border: none;
-		border-radius: 3px;
-	}
+	<style>
+		input[type=range] {
+			-webkit-appearance: none;
+		}
 
-	input[type=range]::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		border: none;
-		height: 1.1em;
-		width: 1.1em
-		border-radius: 50%;
-		background: #0f77fe;
-		margin-top: -4px;
-	}
-</style>
+		input[type=range]::-webkit-slider-runnable-track {
+			height: .35em;
+			background: #0f77fe;
+			border: none;
+			border-radius: 3px;
+		}
+
+		input[type=range]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			border: none;
+			height: 1.1em;
+			width: 1.1em;
+			border-radius: 50%;
+			background: #0f77fe;
+			margin-top: -4px;
+		}
+	</style>
 <body>
 	<header th:replace="~{/fragments/header}"></header>
 	<section>
@@ -48,9 +49,9 @@
 							<h2>Price Range</h2>
 							<div class="well text-center">
 								<form method="post" th:action="@{/home/filter-price}">
-									<input th:if="${rangePrice}" type="range" style="color: #0f77fe;" min="1" max="101" th:value="${rangePrice}" name="rangePrice" step="5" class="rangePrice" ><br />
-									<input th:unless="${rangePrice}" type="range" style="color: #0f77fe;" min="1" max="101" name="rangePrice" step="5" class="rangePrice" ><br />
-									<b class="pull-left">$ 1</b> <b class="pull-right">$ 100</b>
+									<input th:if="${rangePrice}" type="range" style="color: #0f77fe;" min="1" max="1001" th:value="${rangePrice}" name="rangePrice" step="5" class="rangePrice" > <br>
+									<input th:unless="${rangePrice}" type="range" style="color: #0f77fe;" min="1" max="1001" name="rangePrice" step="5" class="rangePrice" > <br>
+									<b class="pull-left">$ 1</b> <b class="pull-right">$ 1000</b>
 									<button type="submit" id="submit" hidden></button>
 								</form>
 							</div>
