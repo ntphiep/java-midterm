@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import java.util.List;
 
 
 @Controller
 public class HomeController {
     public static final String baseUrl = "http://localhost:8080";
+
     @GetMapping("/")
     public String getHome() {
         return "redirect:/home";
@@ -24,18 +24,19 @@ public class HomeController {
     public String getHome(Model model,HttpServletRequest request) {
         RestTemplate restTemplate = new RestTemplate();
         String url = baseUrl + "/api/product/get-all";
-        List products = restTemplate.getForObject(url,List.class);
+        List products = restTemplate.getForObject(url, List.class);
 
         url = baseUrl + "/api/category/get-all";
-        Iterable categories = restTemplate.getForObject(url,Iterable.class);
+        Iterable categories = restTemplate.getForObject(url, Iterable.class);
 
         url = baseUrl + "/api/brand/get-all";
-        Iterable brands = restTemplate.getForObject(url,Iterable.class);
-
+        Iterable brands = restTemplate.getForObject(url, Iterable.class);
+ 
         if(model.getAttribute("products") == null) model.addAttribute("products", products);
         
         model.addAttribute("categories", categories);
         model.addAttribute("brands", brands);
+
         return "index";
     }
 
@@ -45,7 +46,7 @@ public class HomeController {
     }
 
     @GetMapping("/home/brand/{id}")
-    public String getFilterByBrand(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public String getFilterByBrand(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         RestTemplate restTemplate = new RestTemplate();
         String url = baseUrl + "/api/product/find-by-brand-id/" + id;
 

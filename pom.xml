@@ -16,11 +16,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SpringCommerce</name>
-	<description>Spring Ccommerce app for Midterm Project</description>
+	<description>Spring Commerce app for Midterm Project</description>
 	
 	<properties>
 		<java.version>17</java.version>
 	</properties>	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,6 +82,7 @@
         <scope>runtime</scope>
     </dependency>
 	</dependencies>
+
 
 	<build>
 	 	<finalName>app</finalName>

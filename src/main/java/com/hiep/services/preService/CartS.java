@@ -12,6 +12,7 @@ import com.hiep.repositories.CartRepository;
 
 @Service
 public interface CartS extends CartRepository {
+
     @Query(value = "FROM Cart AS c WHERE c.user.id=:id")
     Iterable<Cart> findAllByUserId(Long id);
 

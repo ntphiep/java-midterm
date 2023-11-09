@@ -17,21 +17,35 @@ public class APIController {
 
     @Autowired  
     private ProductService productService;
+
     @Autowired
     private CategoryService categoryService;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private CustomerService customerService;
+
     @Autowired
     private CartService cartService;
+
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private OrderItemService orderItemService;
+
     @Autowired
     private BrandService brandService;
 
+
+    // All api list
+
+    @GetMapping("/api/product/get-all")
+    public Iterable<Product> getAllProduct(){
+        return productService.findAll();
+    }
 
     @GetMapping("/api/brand/get-all")
     public Iterable<Brand> getAllBrand(){
@@ -43,11 +57,7 @@ public class APIController {
         return categoryService.findAll();
     }
 
-    @GetMapping("/api/product/get-all")
-    public Iterable<Product> getAllProduct(){
-        return productService.findAll();
-    }
-
+    
     @GetMapping("/api/product/find/{id}")
     public Product getDetails(@PathVariable("id") Long id) {
         return productService.findByID(id);
