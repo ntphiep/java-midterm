@@ -24,11 +24,17 @@ docker-compose up -d
 
 - Add this environment variable to your computer 
 
-```bash
-
+```powershell
+# Window
+setx JAVA_TOOL_OPTIONS --add-opens=java.base/java.time=ALL-UNNAMED
 ```
 
-- Once the database is running in docker, run the following command to build the application
+``` bash
+# Linux
+export JAVA_TOOL_OPTIONS=--add-opens=java.base/java.time=ALL-UNNAMED
+```
+
+- Once the database is running in docker and the environment variable is set, run the following command to build the application
 
 ```bash
 mvnw spring-boot:run

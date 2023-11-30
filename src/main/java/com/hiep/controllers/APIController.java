@@ -1,14 +1,33 @@
 package com.hiep.controllers;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import com.hiep.models.*;
-import com.hiep.services.*;
-
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
+import com.hiep.models.Brand;
+import com.hiep.models.Cart;
+import com.hiep.models.Category;
+import com.hiep.models.Customer;
+import com.hiep.models.Order;
+import com.hiep.models.OrderItem;
+import com.hiep.models.Product;
+import com.hiep.models.User;
+import com.hiep.services.BrandService;
+import com.hiep.services.CartService;
+import com.hiep.services.CategoryService;
+import com.hiep.services.CustomerService;
+import com.hiep.services.OrderItemService;
+import com.hiep.services.OrderService;
+import com.hiep.services.ProductService;
+import com.hiep.services.UserService;
 
 
 @RestController
@@ -197,7 +216,7 @@ public class APIController {
 
     @PostMapping("/api/customer/update")
     public Customer postUpdateCus(@RequestBody Map<String,String> body){
-        Long customer_id = Long.parseLong(body.get("id"));
+        Long customer_id = Long.valueOf(body.get("id"));
         Customer customer = customerService.findById(customer_id);
 
         customer.setAddress(body.get("address"));
