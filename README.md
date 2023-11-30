@@ -22,6 +22,12 @@
 docker-compose up -d
 ```
 
+- Add this environment variable to your computer 
+
+```bash
+
+```
+
 - Once the database is running in docker, run the following command to build the application
 
 ```bash
